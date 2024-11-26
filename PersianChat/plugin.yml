@@ -1,5 +1,5 @@
 name: PersianChat
-main: /src/persianchat\main.php
+main: PersianChat/src/persianchat/main.php
 version: 1.0.0
 api: [5.21.1] # نسخه API سرور PocketMine یا Piggot
 description: A plugin to reverse and fix Farsi text in chat.
