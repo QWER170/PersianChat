@@ -1,17 +1,19 @@
 <?php
 
-namespace persianchat;
+namespace QWER170\PersianChat;
 
 use pocketmine\plugin\PluginBase;
-use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerChatEvent;
 
-class Main extends PluginBase implements Listener {
-
+class Main extends PluginBase {
     public function onEnable(): void {
-        $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getLogger()->info("persianchat plugin has been enabled!");
+        $this->getLogger()->info("PersianChat plugin enabled!");
     }
+
+    public function onDisable(): void {
+        $this->getLogger()->info("PersianChat plugin disabled!");
+    }
+}
+
 
     public function onDisable(): void {
         $this->getLogger()->info("persianchat plugin has been disabled!");
