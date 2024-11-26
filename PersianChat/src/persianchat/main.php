@@ -1,49 +1,47 @@
 <?php
 
-namespace QWER170\PersianChat;
+namespace \PersianChat;
 
 use pocketmine\plugin\PluginBase;
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerChatEvent;
 
-class Main extends PluginBase {
+class Main extends PluginBase implements Listener {
+
     public function onEnable(): void {
-        $this->getLogger()->info("PersianChat plugin enabled!");
+        $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->getLogger()->info("persianChat plugin has been enabled!");
     }
 
     public function onDisable(): void {
-        $this->getLogger()->info("PersianChat plugin disabled!");
-    }
-}
-
-
-    public function onDisable(): void {
-        $this->getLogger()->info("persianchat plugin has been disabled!");
+        $this->getLogger()->info("persianChat plugin has been disabled!");
     }
 
     public function onChat(PlayerChatEvent $event): void {
         $message = $event->getMessage();
 
         // بررسی اینکه آیا متن حاوی حروف فارسی است
-        if ($this->containsFarsi($message)) {
+        if ($this->containspersian($message)) {
             // اصلاح و معکوس کردن متن فارسی
-            $fixedMessage = $this->fixFarsiText($message);
+            $fixedMessage = $this->fixpersianText($message);
             $event->setMessage($fixedMessage);
         }
     }
 
-    private function containsFarsi(string $text): bool {
+    private function containspersian(string $text): bool {
         // بررسی وجود کاراکترهای فارسی در متن
         return preg_match('/[آ-ی]/u', $text) > 0;
     }
 
-    private function fixFarsiText(string $text): string {
+    private function fixpersianText(string $text): string {
         // معکوس کردن متن
         $reversed = implode('', array_reverse(mb_str_split($text)));
 
         // اصلاح چسبندگی حروف فارسی (در صورت نیاز)
-        return $this->joinFarsiLetters($reversed);
+        return $this->joinpersianLetters($reversed);
     }
 
-    private function joinFarsiLetters(string $text): string {
+    private function joinpersianLetters(string $text): string {
         // جدول ساده چسبندگی حروف فارسی
         $lettersMap = [
             'ا' => 'ﺍ', 'ب' => 'ﺑ', 'پ' => 'ﭘ', 'ت' => 'ﺗ',
